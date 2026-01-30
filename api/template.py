@@ -26,6 +26,7 @@ list_of_files = [
     '.dockerignore',
     '.gitignore',
     'setup.py',
+    '.env'
 ]
 
 for file_path in list_of_files:
