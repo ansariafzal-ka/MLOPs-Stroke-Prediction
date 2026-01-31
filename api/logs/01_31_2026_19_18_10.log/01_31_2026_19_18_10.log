@@ -1,0 +1,4 @@
+[ 2026-01-31 19:18:10,487 ] 22 root - INFO - Data Ingestion Started.
+[ 2026-01-31 19:18:10,497 ] 25 root - INFO - Dataset loaded.
+[ 2026-01-31 19:18:10,521 ] 29 root - INFO - Raw dataset saved.
+[ 2026-01-31 19:18:10,552 ] 35 root - INFO - Data ingestion completed.
