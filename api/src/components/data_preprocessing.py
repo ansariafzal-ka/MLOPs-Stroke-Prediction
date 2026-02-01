@@ -4,6 +4,7 @@ import os
 import sys
 from dataclasses import dataclass
 from sklearn.preprocessing import StandardScaler
+import pickle
 
 from src.logger import logging
 from src.exception import CustomException
@@ -14,6 +15,7 @@ warnings.filterwarnings('ignore')
 class DataPreprocessorConfig:
     train_processed_data_path: str = os.path.join('artifacts', 'processed', 'train.csv')
     test_processed_data_path: str = os.path.join('artifacts', 'processed', 'test.csv')
+    scaler_path: str = os.path.join('artifacts', 'scaler.pkl')
 
 
 class DataProcessor:
@@ -24,6 +26,10 @@ class DataProcessor:
         try:
 
             logging.info('Data processing started.')
+            # dropping the id column
+            train_df = train_df.drop('id', axis=1)
+            test_df = test_df.drop('id', axis=1)
+
             # dropping the missing values in bmi feature
             train_df['bmi'] = train_df['bmi'].fillna(train_df['bmi'].median())
             test_df['bmi'] = test_df['bmi'].fillna(test_df['bmi'].median())
@@ -73,6 +79,11 @@ class DataProcessor:
             scaler = StandardScaler()
             train_df[continuous_features] = scaler.fit_transform(train_df[continuous_features])
             test_df[continuous_features] = scaler.transform(test_df[continuous_features])
+
+            with open(self.processing_config.scaler_path, 'wb') as f:
+                pickle.dump(scaler, f)
+
+            logging.info('Scaler saved.')
 
             logging.info('Data processing completed.')
 
