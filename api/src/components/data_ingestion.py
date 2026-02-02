@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 
 from src.logger import logging
 from src.exception import CustomException
+from src.configurations.aws_connection import AWSClient
 from dataclasses import dataclass
 
 @dataclass
@@ -16,12 +17,21 @@ class DataIngestionConfig:
 class DataIngestion:
     def __init__(self):
         self.ingestion_config = DataIngestionConfig()
+        self.bucket_name = 'stroke-prediction-bucket-mlops'
+        self.s3_key = 'stroke-data.csv'
 
     def initiate_data_ingestion(self):
         try:
             logging.info('Data Ingestion Started.')
 
-            df = pd.read_csv('C:/Users/ansar/Desktop/Workspace/Personal/MLOPs/Storke Prediction/api/src/notebooks/data/stroke-data.csv')
+            aws_client = AWSClient()
+            client = aws_client.client
+
+            response = client.get_object(Bucket=self.bucket_name, Key=self.s3_key)
+            print("✅ Successfully connected to AWS S3")
+
+            
+            df = pd.read_csv(response['Body'])
             logging.info('Dataset loaded.')
 
             os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path), exist_ok=True)
