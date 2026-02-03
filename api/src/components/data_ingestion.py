@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import sys
+from dotenv import load_dotenv
 from sklearn.model_selection import train_test_split
 
 from src.logger import logging
@@ -16,9 +17,10 @@ class DataIngestionConfig:
 
 class DataIngestion:
     def __init__(self):
+        load_dotenv()
         self.ingestion_config = DataIngestionConfig()
-        self.bucket_name = 'stroke-prediction-bucket-mlops'
-        self.s3_key = 'stroke-data.csv'
+        self.bucket_name = os.getenv('BUCKET_NAME')
+        self.s3_key = os.getenv('S3_KEY')
 
     def initiate_data_ingestion(self):
         try:

@@ -6,11 +6,11 @@ from src.exception import CustomException
 
 
 class AWSClient:
-    load_dotenv()
     client = None
     
     def __init__(self):
         try:
+            load_dotenv()
             if AWSClient.client is None:
                 self.initialise_aws_client()
         except Exception as e:

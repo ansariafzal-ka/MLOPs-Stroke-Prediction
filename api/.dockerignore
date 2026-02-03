@@ -1,0 +1,46 @@
+# .dockerignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Jupyter
+.ipynb_checkpoints/
+
+# MLFlow
+mlruns/
+mlflow.db
+
+artifacts/
+
+# Logs
+*.log
+
+# Local data (if using S3)
+data/
+notebooks/data/
+
+# Temporary files
+temp/
+tmp/

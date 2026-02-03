@@ -21,8 +21,8 @@ class PatientData(BaseModel):
     bmi: float
     smoking_status: object
 
-@app.get('/')
-def root():
+@app.get('/health')
+def health():
     return {'status': 'ok'}
 
 @app.post('/predict')
